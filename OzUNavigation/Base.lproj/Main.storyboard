@@ -8,7 +8,6 @@
         <!--Root View Controller-->
         <scene sceneID="u9F-FL-cet">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nnm-GS-HnI" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="plR-hP-sR8" customClass="RegionListViewController" customModule="OzUNavigation" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ltX-dH-pvK">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -32,6 +31,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="sjk-Ec-Kq3"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nnm-GS-HnI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1810" y="-548"/>
         </scene>
@@ -70,6 +70,10 @@
                                     <outlet property="delegate" destination="nAX-Co-MT6" id="zBt-3A-m94"/>
                                 </connections>
                             </scrollView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="s2o-GR-sGq">
+                                <rect key="frame" x="281" y="282" width="37" height="37"/>
+                                <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -77,9 +81,12 @@
                             <constraint firstItem="yeM-dg-wcp" firstAttribute="top" secondItem="t2k-Io-ywk" secondAttribute="bottom" constant="-64" id="h9B-yx-sPa"/>
                             <constraint firstItem="yeM-dg-wcp" firstAttribute="leading" secondItem="iCd-Bi-Ow9" secondAttribute="leadingMargin" constant="-16" id="owW-OW-VwQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="yeM-dg-wcp" secondAttribute="trailing" constant="-16" id="vWq-V0-wvq"/>
+                            <constraint firstAttribute="centerX" secondItem="s2o-GR-sGq" secondAttribute="centerX" id="yVB-AB-fGu"/>
+                            <constraint firstAttribute="centerY" secondItem="s2o-GR-sGq" secondAttribute="centerY" id="z0f-yz-1CD"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="s2o-GR-sGq" id="7xC-QD-C6g"/>
                         <outlet property="imageConstraintBottom" destination="OGq-Mn-8fZ" id="YhI-BO-jyp"/>
                         <outlet property="imageConstraintLeft" destination="4jt-nU-hPV" id="sdm-uL-FXZ"/>
                         <outlet property="imageConstraintRight" destination="QYL-V5-IO8" id="Ndc-RX-GjH"/>

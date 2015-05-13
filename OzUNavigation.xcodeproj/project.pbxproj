@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		182DB3F91B035D7F00FD4514 /* RegionImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182DB3F81B035D7F00FD4514 /* RegionImageViewController.swift */; };
 		182DB3FB1B035F3E00FD4514 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182DB3FA1B035F3E00FD4514 /* NavigationViewController.swift */; };
 		182DB4051B036A9000FD4514 /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182DB4001B036A9000FD4514 /* Beacon.swift */; };
 		182DB4061B036A9000FD4514 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182DB4011B036A9000FD4514 /* Connection.swift */; };
@@ -18,12 +17,15 @@
 		182DB40E1B036B3400FD4514 /* LoadViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182DB40D1B036B3400FD4514 /* LoadViewProtocol.swift */; };
 		182DB4101B036BDF00FD4514 /* LoadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182DB40F1B036BDF00FD4514 /* LoadViewController.swift */; };
 		182DB4141B03706900FD4514 /* RegionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182DB4131B03706900FD4514 /* RegionListViewController.swift */; };
+		182DB4161B038D8700FD4514 /* ServerData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 182DB4151B038D8700FD4514 /* ServerData.plist */; };
+		182DB4191B038E3300FD4514 /* ServerDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182DB4181B038E3300FD4514 /* ServerDataManager.swift */; };
 		185FAF621B029D8300E92768 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185FAF611B029D8300E92768 /* AppDelegate.swift */; };
 		185FAF691B029D8300E92768 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 185FAF671B029D8300E92768 /* Main.storyboard */; };
 		185FAF6B1B029D8300E92768 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 185FAF6A1B029D8300E92768 /* Images.xcassets */; };
 		185FAF7A1B029D8300E92768 /* OzUNavigationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185FAF791B029D8300E92768 /* OzUNavigationTests.swift */; };
 		185FAF841B029DF600E92768 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 185FAF831B029DF600E92768 /* CoreLocation.framework */; };
 		185FAF861B02A02D00E92768 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185FAF851B02A02D00E92768 /* LaunchScreen.xib */; };
+		18824FAA1B03A12F00FB80A2 /* RegionImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18824FA91B03A12F00FB80A2 /* RegionImageViewController.swift */; };
 		A457B264CD9A915D67A9B5D7 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C3E9FCEEF1E0745A567EB7 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -39,7 +41,6 @@
 
 /* Begin PBXFileReference section */
 		06D01090A494C568C0FABA9A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		182DB3F81B035D7F00FD4514 /* RegionImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionImageViewController.swift; sourceTree = "<group>"; };
 		182DB3FA1B035F3E00FD4514 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		182DB4001B036A9000FD4514 /* Beacon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beacon.swift; sourceTree = "<group>"; };
 		182DB4011B036A9000FD4514 /* Connection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
@@ -50,6 +51,8 @@
 		182DB40D1B036B3400FD4514 /* LoadViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadViewProtocol.swift; sourceTree = "<group>"; };
 		182DB40F1B036BDF00FD4514 /* LoadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadViewController.swift; sourceTree = "<group>"; };
 		182DB4131B03706900FD4514 /* RegionListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionListViewController.swift; sourceTree = "<group>"; };
+		182DB4151B038D8700FD4514 /* ServerData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ServerData.plist; sourceTree = "<group>"; };
+		182DB4181B038E3300FD4514 /* ServerDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerDataManager.swift; sourceTree = "<group>"; };
 		185FAF5C1B029D8300E92768 /* OzUNavigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OzUNavigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		185FAF601B029D8300E92768 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		185FAF611B029D8300E92768 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +63,7 @@
 		185FAF791B029D8300E92768 /* OzUNavigationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OzUNavigationTests.swift; sourceTree = "<group>"; };
 		185FAF831B029DF600E92768 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		185FAF851B02A02D00E92768 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		18824FA91B03A12F00FB80A2 /* RegionImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionImageViewController.swift; sourceTree = "<group>"; };
 		D9C3E9FCEEF1E0745A567EB7 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F84AC07107A49161A8584521 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,7 +104,7 @@
 		182DB3FD1B03647500FD4514 /* Places */ = {
 			isa = PBXGroup;
 			children = (
-				182DB3F81B035D7F00FD4514 /* RegionImageViewController.swift */,
+				18824FA91B03A12F00FB80A2 /* RegionImageViewController.swift */,
 				182DB4131B03706900FD4514 /* RegionListViewController.swift */,
 			);
 			name = Places;
@@ -134,6 +138,15 @@
 			name = Navigation;
 			sourceTree = "<group>";
 		};
+		182DB4171B038E1C00FD4514 /* Server Data */ = {
+			isa = PBXGroup;
+			children = (
+				182DB4151B038D8700FD4514 /* ServerData.plist */,
+				182DB4181B038E3300FD4514 /* ServerDataManager.swift */,
+			);
+			name = "Server Data";
+			sourceTree = "<group>";
+		};
 		185FAF531B029D8300E92768 = {
 			isa = PBXGroup;
 			children = (
@@ -158,10 +171,11 @@
 		185FAF5E1B029D8300E92768 /* OzUNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				185FAF611B029D8300E92768 /* AppDelegate.swift */,
+				182DB4171B038E1C00FD4514 /* Server Data */,
 				182DB40A1B036AA100FD4514 /* Navigation */,
 				182DB3FF1B036A7000FD4514 /* Entity */,
 				182DB3FC1B03646D00FD4514 /* View */,
-				185FAF611B029D8300E92768 /* AppDelegate.swift */,
 				185FAF6A1B029D8300E92768 /* Images.xcassets */,
 				185FAF5F1B029D8300E92768 /* Supporting Files */,
 			);
@@ -297,6 +311,7 @@
 				185FAF691B029D8300E92768 /* Main.storyboard in Resources */,
 				185FAF861B02A02D00E92768 /* LaunchScreen.xib in Resources */,
 				185FAF6B1B029D8300E92768 /* Images.xcassets in Resources */,
+				182DB4161B038D8700FD4514 /* ServerData.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,7 +378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				182DB40E1B036B3400FD4514 /* LoadViewProtocol.swift in Sources */,
-				182DB3F91B035D7F00FD4514 /* RegionImageViewController.swift in Sources */,
+				18824FAA1B03A12F00FB80A2 /* RegionImageViewController.swift in Sources */,
 				182DB4081B036A9000FD4514 /* EntityManager.swift in Sources */,
 				182DB40C1B036AA900FD4514 /* NavigationManager.swift in Sources */,
 				185FAF621B029D8300E92768 /* AppDelegate.swift in Sources */,
@@ -372,6 +387,7 @@
 				182DB4101B036BDF00FD4514 /* LoadViewController.swift in Sources */,
 				182DB4141B03706900FD4514 /* RegionListViewController.swift in Sources */,
 				182DB4061B036A9000FD4514 /* Connection.swift in Sources */,
+				182DB4191B038E3300FD4514 /* ServerDataManager.swift in Sources */,
 				182DB3FB1B035F3E00FD4514 /* NavigationViewController.swift in Sources */,
 				182DB4051B036A9000FD4514 /* Beacon.swift in Sources */,
 			);

@@ -21,6 +21,7 @@ public class RegionImageViewController: UIViewController {
     @IBOutlet weak var imageConstraintTop: NSLayoutConstraint!
     @IBOutlet weak var imageConstraintBottom: NSLayoutConstraint!
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     private var lastZoomScale: CGFloat = -1
 
     private var regionId:Int!
@@ -36,13 +37,14 @@ public class RegionImageViewController: UIViewController {
             (image, error, cacheType, imageURL) -> () in
             self.updateZoom()
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            self.activityIndicator.stopAnimating()
         }
 
     }
 
     public func setRegionId(regionId:Int) {
         self.regionId = regionId
-        let imageUrlPath = "https://localhost:8443/robot/regions/\(regionId)/image"
+        let imageUrlPath = ServerDataManager.sharedInstance().getRegionImageUrl(regionId)
         self.imageUrl = NSURLComponents(string: imageUrlPath)!.URL!
     }
 

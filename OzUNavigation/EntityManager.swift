@@ -26,7 +26,10 @@ public class EntityManager {
     private(set) var beaconsToConnections = [Int:[Connection]]() // Map Beacon ID to Connection
 
     // AFNetworking Manager
-    let manager: AFHTTPRequestOperationManager
+    let requestManager: AFHTTPRequestOperationManager
+
+    // Server Data Manager
+    let serverManager = ServerDataManager.sharedInstance()
 
     // Request operations
     private var regionRequestOperation:AFHTTPRequestOperation!
@@ -40,26 +43,14 @@ public class EntityManager {
     // Entity load status
     private var entitiesAreLoaded = false
 
-    // Project details
-    // WILL BE REPLACED TO SECURE STORAGE
-    private static let parameters = [
-        "projectId" : 1,
-        "secret" : "56E7C5F1-A20E-481E-AF24-24938D7C31A8"
-    ]
-    private static let serverAddress = "https://localhost:8443/robot"
-    private static let projectUrl = serverAddress + "/project"
-    private static let regionUrl = serverAddress + "/regions"
-    private static let beaconUrlTrailer = "/beacons" // Base URL is regionUrl
-    private static let connectionUrl = serverAddress + "/connections"
-
     class func sharedInstance() -> EntityManager {
         self.instance = (self.instance ?? EntityManager())
         return self.instance
     }
 
     init() {
-        self.manager = AFHTTPRequestOperationManager()
-        manager.securityPolicy.allowInvalidCertificates = true
+        self.requestManager = AFHTTPRequestOperationManager()
+        requestManager.securityPolicy.allowInvalidCertificates = true
     }
 
     public func loadEntities(loadView:LoadViewProtocol) {
@@ -74,8 +65,8 @@ public class EntityManager {
     }
 
     private func createRegionRequest() {
-        let jsonUrlRequest = getJsonUrlRequest(url: EntityManager.regionUrl)
-        let request:AFHTTPRequestOperation = manager.HTTPRequestOperationWithRequest(jsonUrlRequest,
+        let jsonUrlRequest = getJsonUrlRequest(url: serverManager.getRegionUrl())
+        let request:AFHTTPRequestOperation = requestManager.HTTPRequestOperationWithRequest(jsonUrlRequest,
             success: handleRegionRequestSuccess,
             failure: handleRequestFailure)
         self.regionRequestOperation = request
@@ -84,8 +75,8 @@ public class EntityManager {
 
     private func createBeaconRequests() {
         for (regionId:Int, _) in regions {
-            let jsonUrlRequest = getJsonUrlRequest(url: EntityManager.regionUrl + "/\(regionId)" + EntityManager.beaconUrlTrailer)
-            let request:AFHTTPRequestOperation = manager.HTTPRequestOperationWithRequest(jsonUrlRequest,
+            let jsonUrlRequest = getJsonUrlRequest(url: serverManager.getBeaconUrl(regionId))
+            let request:AFHTTPRequestOperation = requestManager.HTTPRequestOperationWithRequest(jsonUrlRequest,
                 success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
                     self.handleBeaconRequestSuccess(operation, responseObject: responseObject, regionId: regionId)
                 },
@@ -98,14 +89,14 @@ public class EntityManager {
     }
 
     private func createConnectionRequest() {
-        let jsonUrlRequest = getJsonUrlRequest(url: EntityManager.connectionUrl)
+        let jsonUrlRequest = getJsonUrlRequest(url: serverManager.getConnectionUrl())
 
-        let request:AFHTTPRequestOperation = manager.HTTPRequestOperationWithRequest(jsonUrlRequest,
+        let request:AFHTTPRequestOperation = requestManager.HTTPRequestOperationWithRequest(jsonUrlRequest,
             success: handleConnectionRequestSuccess,
             failure: handleRequestFailure)
-        for beaconRequest in beaconRequestOperations {
-            request.addDependency(beaconRequest)
-        }
+//        for beaconRequest in beaconRequestOperations {
+//            request.addDependency(beaconRequest)
+//        }
         self.connectionRequestOperation = request
         println("Connection request job created.")
     }
@@ -201,7 +192,7 @@ public class EntityManager {
     }
 
     private func getJsonUrlRequest(#url: String) -> NSMutableURLRequest {
-        return AFJSONRequestSerializer().requestWithMethod("POST", URLString: url, parameters: EntityManager.parameters, error: nil)
+        return AFJSONRequestSerializer().requestWithMethod("POST", URLString: url, parameters: serverManager.getQueryAuthenticationJsonAsDict(), error: nil)
     }
 
     public func getRegionsAsDisplayList() -> ([Int], [String]) {
