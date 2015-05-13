@@ -7,16 +7,31 @@
 //
 
 import UIKit
+import Kingfisher
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    private let idJson = "{\"projectId\":1,\"secret\":\"56E7C5F1-A20E-481E-AF24-24938D7C31A8\"}";
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        KingfisherManager.sharedManager.downloader.trustedHosts = Set(["localhost", "127.0.0.1"])
+        KingfisherManager.sharedManager.downloader.requestModifier = {
+            (request: NSMutableURLRequest) in
+            request.HTTPMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let body:NSString = self.getRequestBodyString(fromString: self.idJson)
+            request.HTTPBody = NSData(base64EncodedString: body as String, options: NSDataBase64DecodingOptions.allZeros)
+        }
         return true
+    }
+
+    func getRequestBodyString(fromString string: NSString) -> NSString {
+        let plainData = string.dataUsingEncoding(NSUTF8StringEncoding)
+        let base64String = plainData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        return base64String
     }
 
     func applicationWillResignActive(application: UIApplication) {

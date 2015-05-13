@@ -1,15 +1,14 @@
 //
-//  SecondViewController.swift
-//  OzUNavigation
+//  ___FILENAME___
+//  ___PROJECTNAME___
 //
-//  Created by A. Emre Ünal on 12/05/15.
-//  Copyright (c) 2015 A. Emre Ünal. All rights reserved.
+//  Created by ___FULLUSERNAME___ on ___DATE___.
+//___COPYRIGHT___
 //
 
 import UIKit
 
-class SecondViewController: UIViewController {
-
+class ___FILEBASENAMEASIDENTIFIER___ : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -19,7 +18,4 @@ class SecondViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
-
