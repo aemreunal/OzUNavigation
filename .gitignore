@@ -31,3 +31,6 @@ DerivedData
 # Carthage/Checkouts
 
 Carthage/Build
+
+# The server address, project ID, and project secret
+ServerData.plist
