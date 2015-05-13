@@ -53,7 +53,7 @@
 		182DB4131B03706900FD4514 /* RegionListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionListViewController.swift; sourceTree = "<group>"; };
 		182DB4151B038D8700FD4514 /* ServerData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ServerData.plist; sourceTree = "<group>"; };
 		182DB4181B038E3300FD4514 /* ServerDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerDataManager.swift; sourceTree = "<group>"; };
-		185FAF5C1B029D8300E92768 /* OzUNavigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OzUNavigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		185FAF5C1B029D8300E92768 /* ÖzÜ Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ÖzÜ Navigation.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		185FAF601B029D8300E92768 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		185FAF611B029D8300E92768 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		185FAF681B029D8300E92768 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -162,7 +162,7 @@
 		185FAF5D1B029D8300E92768 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				185FAF5C1B029D8300E92768 /* OzUNavigation.app */,
+				185FAF5C1B029D8300E92768 /* ÖzÜ Navigation.app */,
 				185FAF731B029D8300E92768 /* OzUNavigationTests.xctest */,
 			);
 			name = Products;
@@ -244,7 +244,7 @@
 			);
 			name = OzUNavigation;
 			productName = OzUNavigation;
-			productReference = 185FAF5C1B029D8300E92768 /* OzUNavigation.app */;
+			productReference = 185FAF5C1B029D8300E92768 /* ÖzÜ Navigation.app */;
 			productType = "com.apple.product-type.application";
 		};
 		185FAF721B029D8300E92768 /* OzUNavigationTests */ = {
@@ -514,7 +514,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = OzUNavigation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "ÖzÜ Navigation";
 			};
 			name = Debug;
 		};
@@ -526,7 +526,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = OzUNavigation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "ÖzÜ Navigation";
 			};
 			name = Release;
 		};
