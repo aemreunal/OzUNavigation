@@ -19,6 +19,9 @@ public class LoadViewController : UIViewController, LoadViewProtocol {
     public func loadingEntitiesDidComplete() {
         println("Load complete, about to perform segue")
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        if BeaconManager.sharedInstance().locationAuthorizationStatus() == LocationAuthorizationStatus.Authorized {
+            BeaconManager.sharedInstance().startRangingBeacons()
+        }
         performSegueWithIdentifier("loadCompleteSegue", sender: self)
     }
 }

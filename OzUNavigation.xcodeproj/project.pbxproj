@@ -19,6 +19,9 @@
 		182DB4141B03706900FD4514 /* RegionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182DB4131B03706900FD4514 /* RegionListViewController.swift */; };
 		182DB4161B038D8700FD4514 /* ServerData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 182DB4151B038D8700FD4514 /* ServerData.plist */; };
 		182DB4191B038E3300FD4514 /* ServerDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182DB4181B038E3300FD4514 /* ServerDataManager.swift */; };
+		183A07221B08F9EB0070709D /* HereViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183A07211B08F9EB0070709D /* HereViewController.swift */; };
+		183A07241B091B470070709D /* LocationAuthorizationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183A07231B091B470070709D /* LocationAuthorizationStatus.swift */; };
+		183A07271B092C3D0070709D /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183A07261B092C3D0070709D /* CoreBluetooth.framework */; };
 		185FAF621B029D8300E92768 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185FAF611B029D8300E92768 /* AppDelegate.swift */; };
 		185FAF691B029D8300E92768 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 185FAF671B029D8300E92768 /* Main.storyboard */; };
 		185FAF6B1B029D8300E92768 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 185FAF6A1B029D8300E92768 /* Images.xcassets */; };
@@ -26,6 +29,7 @@
 		185FAF841B029DF600E92768 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 185FAF831B029DF600E92768 /* CoreLocation.framework */; };
 		185FAF861B02A02D00E92768 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185FAF851B02A02D00E92768 /* LaunchScreen.xib */; };
 		18824FAA1B03A12F00FB80A2 /* RegionImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18824FA91B03A12F00FB80A2 /* RegionImageViewController.swift */; };
+		18FACE661B08EA410019BF68 /* BeaconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FACE651B08EA410019BF68 /* BeaconManager.swift */; };
 		A457B264CD9A915D67A9B5D7 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C3E9FCEEF1E0745A567EB7 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -53,6 +57,9 @@
 		182DB4131B03706900FD4514 /* RegionListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionListViewController.swift; sourceTree = "<group>"; };
 		182DB4151B038D8700FD4514 /* ServerData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ServerData.plist; sourceTree = "<group>"; };
 		182DB4181B038E3300FD4514 /* ServerDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerDataManager.swift; sourceTree = "<group>"; };
+		183A07211B08F9EB0070709D /* HereViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HereViewController.swift; sourceTree = "<group>"; };
+		183A07231B091B470070709D /* LocationAuthorizationStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationAuthorizationStatus.swift; sourceTree = "<group>"; };
+		183A07261B092C3D0070709D /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		185FAF5C1B029D8300E92768 /* ÖzÜ Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ÖzÜ Navigation.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		185FAF601B029D8300E92768 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		185FAF611B029D8300E92768 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +71,7 @@
 		185FAF831B029DF600E92768 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		185FAF851B02A02D00E92768 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		18824FA91B03A12F00FB80A2 /* RegionImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionImageViewController.swift; sourceTree = "<group>"; };
+		18FACE651B08EA410019BF68 /* BeaconManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconManager.swift; sourceTree = "<group>"; };
 		D9C3E9FCEEF1E0745A567EB7 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F84AC07107A49161A8584521 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				183A07271B092C3D0070709D /* CoreBluetooth.framework in Frameworks */,
 				185FAF841B029DF600E92768 /* CoreLocation.framework in Frameworks */,
 				A457B264CD9A915D67A9B5D7 /* Pods.framework in Frameworks */,
 			);
@@ -91,12 +100,12 @@
 		182DB3FC1B03646D00FD4514 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				183A07251B0928010070709D /* Load */,
+				183A07201B08F9D90070709D /* Here */,
 				182DB3FE1B03649300FD4514 /* Navigate */,
 				185FAF671B029D8300E92768 /* Main.storyboard */,
 				185FAF851B02A02D00E92768 /* LaunchScreen.xib */,
 				182DB3FD1B03647500FD4514 /* Places */,
-				182DB40D1B036B3400FD4514 /* LoadViewProtocol.swift */,
-				182DB40F1B036BDF00FD4514 /* LoadViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -134,6 +143,8 @@
 			isa = PBXGroup;
 			children = (
 				182DB40B1B036AA900FD4514 /* NavigationManager.swift */,
+				18FACE651B08EA410019BF68 /* BeaconManager.swift */,
+				183A07231B091B470070709D /* LocationAuthorizationStatus.swift */,
 			);
 			name = Navigation;
 			sourceTree = "<group>";
@@ -145,6 +156,23 @@
 				182DB4181B038E3300FD4514 /* ServerDataManager.swift */,
 			);
 			name = "Server Data";
+			sourceTree = "<group>";
+		};
+		183A07201B08F9D90070709D /* Here */ = {
+			isa = PBXGroup;
+			children = (
+				183A07211B08F9EB0070709D /* HereViewController.swift */,
+			);
+			name = Here;
+			sourceTree = "<group>";
+		};
+		183A07251B0928010070709D /* Load */ = {
+			isa = PBXGroup;
+			children = (
+				182DB40D1B036B3400FD4514 /* LoadViewProtocol.swift */,
+				182DB40F1B036BDF00FD4514 /* LoadViewController.swift */,
+			);
+			name = Load;
 			sourceTree = "<group>";
 		};
 		185FAF531B029D8300E92768 = {
@@ -219,6 +247,7 @@
 		751488D529B27D0A76FABAA9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				183A07261B092C3D0070709D /* CoreBluetooth.framework */,
 				D9C3E9FCEEF1E0745A567EB7 /* Pods.framework */,
 			);
 			name = Frameworks;
@@ -386,10 +415,13 @@
 				182DB4071B036A9000FD4514 /* Entity.swift in Sources */,
 				182DB4101B036BDF00FD4514 /* LoadViewController.swift in Sources */,
 				182DB4141B03706900FD4514 /* RegionListViewController.swift in Sources */,
+				183A07221B08F9EB0070709D /* HereViewController.swift in Sources */,
 				182DB4061B036A9000FD4514 /* Connection.swift in Sources */,
 				182DB4191B038E3300FD4514 /* ServerDataManager.swift in Sources */,
 				182DB3FB1B035F3E00FD4514 /* NavigationViewController.swift in Sources */,
 				182DB4051B036A9000FD4514 /* Beacon.swift in Sources */,
+				183A07241B091B470070709D /* LocationAuthorizationStatus.swift in Sources */,
+				18FACE661B08EA410019BF68 /* BeaconManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,7 +577,7 @@
 				INFOPLIST_FILE = OzUNavigationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OzUNavigation.app/OzUNavigation";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ÖzÜ Navigation.app/ÖzÜ Navigation";
 			};
 			name = Debug;
 		};
@@ -560,7 +592,7 @@
 				INFOPLIST_FILE = OzUNavigationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OzUNavigation.app/OzUNavigation";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ÖzÜ Navigation.app/ÖzÜ Navigation";
 			};
 			name = Release;
 		};
