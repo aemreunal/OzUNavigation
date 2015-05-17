@@ -23,7 +23,9 @@ class RegionListViewController : UITableViewController {
         if segue.identifier! == "showRegionImageSegue" {
             let selectedRow = self.tableView.indexPathForSelectedRow()!.row
             let destinationViewController = segue.destinationViewController as! RegionImageViewController
-            destinationViewController.setRegionId(self.regionIds[selectedRow])
+            let destinationRegionId = self.regionIds[selectedRow]
+            destinationViewController.setRegionId(destinationRegionId)
+            destinationViewController.title = EntityManager.sharedInstance().getRegion(ID: destinationRegionId).displayName
         }
     }
 

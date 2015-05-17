@@ -39,7 +39,6 @@ public class RegionImageViewController: UIViewController {
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             self.activityIndicator.stopAnimating()
         }
-
     }
 
     public func setRegionId(regionId:Int) {
