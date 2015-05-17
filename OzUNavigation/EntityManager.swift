@@ -187,6 +187,18 @@ public class EntityManager {
         return self.beacons[id]!
     }
     
+    public func getBeaconBy(#uuid: String, major: Int, minor: Int) -> Beacon? {
+        let filteredBeacons = beacons.values.filter({
+            (beacon:Beacon)->Bool in
+            return beacon.hasAttributes(uuid: uuid, major: major, minor: minor)
+        }).array
+        if let matchingBeacon = filteredBeacons.first {
+            return matchingBeacon
+        } else {
+            return nil
+        }
+    }
+    
     public func getConnection(ID id:Int) -> Connection {
         return self.connections[id]!
     }
