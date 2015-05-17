@@ -22,17 +22,18 @@ import SwiftyJSON
 */
 
 public class Beacon: Entity {
-    let beaconId: Int // : 2,
-    let uuid: String // :  //56E7C5F1-A20E-481E-AF24-24938D7C31A8 //,
-    let major: Int // : 1,
-    let minor: Int // : 1,
-    let designated: Bool // : false,
-    let yCoordinate: Int // : 433,
-    let xCoordinate: Int // : 433,
-    let hasLocationInfo: Bool // : false,
-    let displayName: String? // :  //,
+    let beaconId: Int
+    let uuid: String
+    let major: Int
+    let minor: Int
+    let designated: Bool
+    let yCoordinate: Int
+    let xCoordinate: Int
+    let hasLocationInfo: Bool
+    let displayName: String?
+    let region: Region!
 
-    init(beaconJson json:JSON) {
+    init(beaconJson json:JSON, region:Region) {
         self.beaconId = json["beaconId"].intValue
         self.uuid = json["uuid"].stringValue
         self.major = json["major"].intValue
@@ -50,11 +51,21 @@ public class Beacon: Entity {
         } else {
             self.displayName = dispName
         }
+
+        self.region = region
     }
 
     public var hashValue: Int { get { return id } }
 
     public var id: Int { get { return beaconId } }
+
+    public func hasAttributes(#uuid:String, major:Int, minor:Int) -> Bool {
+        if self.uuid == uuid && self.major == major && self.minor == minor {
+            return true
+        } else {
+            return false
+        }
+    }
 }
 
 public func == (lhs: Beacon, rhs: Beacon) -> Bool {
