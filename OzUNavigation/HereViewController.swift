@@ -43,6 +43,7 @@ class HereViewController : UIViewController {
 
         let disallowAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Default) {
             (action: UIAlertAction!) -> Void in
+            self.tabBarController!.selectedIndex = 0
             println("Didn't allow")
         }
         alertController.addAction(disallowAction)
