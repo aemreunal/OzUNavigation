@@ -15,6 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        setKingfisherRequestAttributes()
+        return true
+    }
+
+    private func setKingfisherRequestAttributes() {
         let manager = ServerDataManager.sharedInstance()
         KingfisherManager.sharedManager.downloader.trustedHosts = Set(["localhost", "127.0.0.1", manager.getServerIpAddress()])
         KingfisherManager.sharedManager.downloader.requestModifier = {
@@ -23,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.HTTPBody = manager.getQueryAuthenticationJsonAsNSData()
         }
-        return true
     }
 
     func applicationWillResignActive(application: UIApplication) {
