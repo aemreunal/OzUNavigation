@@ -10,23 +10,26 @@ import Foundation
 import CoreLocation
 import CoreBluetooth
 
+let LOCATION_RESET_TIME_SEC: Double = 3
+
 public class BeaconManager: NSObject, CLLocationManagerDelegate {
     // Singleton variable
     private static var instance: BeaconManager!
 
     // Location & Bluetooth
-    private var locationManager: CLLocationManager!
-    private let bluetoothManager = CBCentralManager()
+    private var locationManager: CLLocationManager! // To monitor for beacon regions
+    private let bluetoothManager = CBCentralManager() // To check for Bluetooth power state
+    private var rangedBeaconRegions = [CLBeaconRegion]() // To store created beacon regions
 
     // Entity Manager
     private var entityManager = EntityManager.sharedInstance()
 
-    // List of ranged beacon regions
-    private var rangedBeaconRegions = [CLBeaconRegion]()
+    // List of beacon region range listeners
+    private var locationUpdateListeners = [LocationUpdateListenerProtocol]()
+    private var locationUpdateTimer: NSTimer?
 
-    // Whether authorization has been requested previously
-    // TODO save this to UserDefaults
-    private var locationAuthorizationHasBeenRequested = false
+    // Whether regions are currently being listened to
+    private(set) var listeningToRegions = false
 
     class func sharedInstance() -> BeaconManager {
         self.instance = (self.instance ?? BeaconManager())
@@ -38,6 +41,8 @@ public class BeaconManager: NSObject, CLLocationManagerDelegate {
         initLocationManager()
     }
 
+    // CoreLocation-related functions
+
     private func initLocationManager() {
         let locationManager = CLLocationManager()
         locationManager.delegate = self
@@ -47,7 +52,7 @@ public class BeaconManager: NSObject, CLLocationManagerDelegate {
     public func locationAuthorizationStatus() -> LocationAuthorizationStatus {
         if !CLLocationManager.locationServicesEnabled() {
             return LocationAuthorizationStatus.NotEnabled
-        } else if bluetoothManager.state != CBCentralManagerState.PoweredOn {
+        } else if bluetoothManager.state == CBCentralManagerState.PoweredOff {
             return LocationAuthorizationStatus.BluetoothDisabled
         } else {
             switch CLLocationManager.authorizationStatus() {
@@ -60,6 +65,12 @@ public class BeaconManager: NSObject, CLLocationManagerDelegate {
             }
         }
     }
+
+    public func requestAuthorization() {
+        locationManager.requestWhenInUseAuthorization()
+    }
+
+    // Beacons
 
     private func createRegions() {
         if !self.rangedBeaconRegions.isEmpty {
@@ -77,29 +88,60 @@ public class BeaconManager: NSObject, CLLocationManagerDelegate {
     }
 
     public func startRangingBeacons() {
+        if listeningToRegions {
+            return
+        }
         createRegions()
         for region in self.rangedBeaconRegions {
             self.locationManager.startRangingBeaconsInRegion(region)
             println("Started ranging region:\"\(region.identifier)\"")
         }
+        listeningToRegions = true
     }
 
     public func stopRangingBeacons() {
+        if !listeningToRegions {
+            return
+        }
         for region in self.rangedBeaconRegions {
             self.locationManager.stopRangingBeaconsInRegion(region)
             println("Stopped ranging region:\"\(region.identifier)\"")
         }
+        listeningToRegions = false
     }
 
-    public func requestAuthorization() {
-        locationManager.requestWhenInUseAuthorization()
-    }
+    // Location updates
 
     public func locationManager(manager: CLLocationManager!, didRangeBeacons beacons: [AnyObject]!, inRegion region: CLBeaconRegion!) {
-        // if let rangedBeacon = beacons.first as? CLBeacon {
-        //     if let beacon = entityManager.getBeaconBy(uuid: rangedBeacon.proximityUUID.UUIDString, major: rangedBeacon.major.integerValue, minor: rangedBeacon.minor.integerValue) {
-        //         println("Nearest beacon has ID:\(beacon.id)")
-        //     }
-        // }
+         if let rangedBeacon = beacons.first as? CLBeacon {
+             if let beacon = entityManager.getBeaconBy(uuid: rangedBeacon.proximityUUID.UUIDString, major: rangedBeacon.major.integerValue, minor: rangedBeacon.minor.integerValue) {
+                println("Nearest beacon has ID:\(beacon.id), belongs to region with name:\(beacon.region.displayName!)")
+                resetLocationTimer()
+                notifyListenersOfLocationUpdate(beacon.region, beacon)
+             }
+         }
+    }
+
+    private func notifyListenersOfLocationUpdate(region:Region?, _ beacon: Beacon?) {
+        self.locationUpdateListeners.map {
+            (listener:LocationUpdateListenerProtocol) in
+            listener.didEnterRegion(region, byDetectingBeacon: beacon)
+        }
+    }
+
+    public func registerForLocationUpdates(listener: LocationUpdateListenerProtocol) {
+        self.locationUpdateListeners.append(listener)
+    }
+
+    private func resetLocationTimer() {
+        if let currentTimer = self.locationUpdateTimer {
+            currentTimer.invalidate()
+        }
+        self.locationUpdateTimer = NSTimer.scheduledTimerWithTimeInterval(LOCATION_RESET_TIME_SEC, target: self, selector: "resetLocation:", userInfo: nil, repeats: true)
+    }
+
+    func resetLocation(timer: NSTimer) {
+        notifyListenersOfLocationUpdate(nil, nil)
+        self.locationUpdateTimer?.invalidate()
     }
 }

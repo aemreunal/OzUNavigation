@@ -138,7 +138,7 @@
                                             <constraint firstAttribute="width" constant="45" id="tfP-pN-eET"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1I-sR-3cc" userLabel="From Picker">
@@ -171,7 +171,7 @@
                                             <constraint firstAttribute="height" constant="21" id="eFl-Wx-Hi7"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ToR-0t-nts" userLabel="To Picker">
@@ -243,26 +243,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hxC-r0-vCf">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":(" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xJa-vf-BBp">
+                                <rect key="frame" x="260" y="100" width="80" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="Cfu-AZ-35O"/>
+                                    <constraint firstAttribute="height" constant="60" id="rJH-u4-3N3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="46"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I don't know where you are..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hbo-9j-mUg">
+                                <rect key="frame" x="189" y="197" width="222" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="6Tb-CT-Iir"/>
+                                    <constraint firstAttribute="width" constant="222" id="Sfq-Hh-3a5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hxC-r0-vCf">
                                 <rect key="frame" x="0.0" y="20" width="600" height="531"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IGb-8q-Rbz">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IGb-8q-Rbz" userLabel="Label Bar View">
                                 <rect key="frame" x="0.0" y="485" width="600" height="66"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Region" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xob-BZ-NEP">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Region" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xob-BZ-NEP">
                                         <rect key="frame" x="8" y="37" width="584" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beacon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A6K-ov-4P1">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beacon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A6K-ov-4P1">
                                         <rect key="frame" x="8" y="8" width="584" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="66" id="1ql-Q7-L7b"/>
                                     <constraint firstItem="A6K-ov-4P1" firstAttribute="top" secondItem="IGb-8q-Rbz" secondAttribute="top" constant="8" id="38S-Hr-XRJ"/>
@@ -279,9 +299,13 @@
                         <constraints>
                             <constraint firstItem="hxC-r0-vCf" firstAttribute="leading" secondItem="xol-nv-A8Z" secondAttribute="leadingMargin" constant="-16" id="6jY-7W-rj3"/>
                             <constraint firstItem="IGb-8q-Rbz" firstAttribute="leading" secondItem="xol-nv-A8Z" secondAttribute="leadingMargin" constant="-16" id="CVv-mp-utB"/>
+                            <constraint firstItem="Hbo-9j-mUg" firstAttribute="top" secondItem="xJa-vf-BBp" secondAttribute="bottom" constant="37" id="IJ4-rH-aR7"/>
                             <constraint firstItem="T9Y-b7-wOA" firstAttribute="top" secondItem="hxC-r0-vCf" secondAttribute="bottom" id="OrO-YV-6gx"/>
+                            <constraint firstItem="xJa-vf-BBp" firstAttribute="top" secondItem="S9m-4h-lg2" secondAttribute="bottom" constant="80" id="Vvw-14-wzS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hxC-r0-vCf" secondAttribute="trailing" constant="-16" id="War-8x-T7U"/>
                             <constraint firstAttribute="trailingMargin" secondItem="IGb-8q-Rbz" secondAttribute="trailing" constant="-16" id="bpY-Su-3ii"/>
+                            <constraint firstAttribute="centerX" secondItem="Hbo-9j-mUg" secondAttribute="centerX" id="p1F-zY-P6B"/>
+                            <constraint firstAttribute="centerX" secondItem="xJa-vf-BBp" secondAttribute="centerX" id="qkA-PO-8xv"/>
                             <constraint firstItem="T9Y-b7-wOA" firstAttribute="top" secondItem="IGb-8q-Rbz" secondAttribute="bottom" id="wkI-iK-mbf"/>
                             <constraint firstItem="hxC-r0-vCf" firstAttribute="top" secondItem="S9m-4h-lg2" secondAttribute="bottom" id="ztA-db-YNe"/>
                         </constraints>
@@ -289,7 +313,8 @@
                     <tabBarItem key="tabBarItem" title="Here" image="second" id="r28-gp-3wf"/>
                     <connections>
                         <outlet property="beaconLabel" destination="A6K-ov-4P1" id="9aE-Dm-mSO"/>
-                        <outlet property="imageView" destination="hxC-r0-vCf" id="86R-lq-lsv"/>
+                        <outlet property="imageView" destination="hxC-r0-vCf" id="eWs-s8-J5q"/>
+                        <outlet property="labelBarView" destination="IGb-8q-Rbz" id="KkZ-aR-MGr"/>
                         <outlet property="regionLabel" destination="Xob-BZ-NEP" id="pdt-fY-hVO"/>
                     </connections>
                 </viewController>

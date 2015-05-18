@@ -7,16 +7,24 @@
 //
 
 import UIKit
+import Kingfisher
 
-class HereViewController : UIViewController {
+public class HereViewController : UIViewController, LocationUpdateListenerProtocol {
     let beaconManager = BeaconManager.sharedInstance()
 
-    @IBOutlet weak var imageView: UIImageView!
+    var lastDetectedRegion: Region?
+    var lastDetectedBeacon: Beacon?
 
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var regionLabel: UILabel!
     @IBOutlet weak var beaconLabel: UILabel!
+    @IBOutlet weak var labelBarView: UIView!
 
-    override func viewDidAppear(animated: Bool) {
+    public override func viewDidLoad() {
+        beaconManager.registerForLocationUpdates(self)
+    }
+
+    public override func viewDidAppear(animated: Bool) {
         askForLocationAuthorization()
     }
 
@@ -36,18 +44,75 @@ class HereViewController : UIViewController {
         let alertController = UIAlertController(title: "Location Authorization", message: "In order to show you your current location and help you navigate, you must allow the use of Location Services. Would you like to allow?", preferredStyle: UIAlertControllerStyle.Alert)
 
         let allowAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) {
-            (action: UIAlertAction!) -> Void in
+            (action: UIAlertAction!) in
             self.beaconManager.requestAuthorization()
         }
         alertController.addAction(allowAction)
 
         let disallowAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Default) {
-            (action: UIAlertAction!) -> Void in
+            (action: UIAlertAction!) in
             self.tabBarController!.selectedIndex = 0
             println("Didn't allow")
         }
         alertController.addAction(disallowAction)
 
         presentViewController(alertController, animated: true, completion: nil)
+    }
+
+    public func didEnterRegion(region:Region?, byDetectingBeacon detectedBeacon:Beacon?) {
+        if region == nil {
+            self.regionLabel.hidden = true
+            self.beaconLabel.hidden = true
+            self.labelBarView.hidden = true
+            self.imageView.hidden = true
+            return
+        }
+        showDetailsOfRegion(region!, andBeacon: detectedBeacon!)
+    }
+
+    private func showDetailsOfRegion(region:Region, andBeacon beacon:Beacon) {
+        // Check if the current shown info is up-to-date
+        if let lastRegion = lastDetectedRegion,
+            lastBeacon = lastDetectedBeacon {
+                if lastRegion == region && lastBeacon == beacon {
+                    return
+                }
+        }
+        setLabelsOfRegion(region, andBeacon: beacon)
+        showImageOfRegion(region, andZoomOnBeacon: beacon)
+    }
+
+    private func setLabelsOfRegion(region:Region, andBeacon beacon:Beacon) {
+        self.labelBarView.hidden = false
+
+        if let regionName = region.displayName {
+            self.regionLabel.text = regionName
+            self.regionLabel.hidden = false
+        } else {
+            self.regionLabel.hidden = true
+        }
+
+        if let beaconName = beacon.displayName {
+            self.beaconLabel.text = beaconName
+            self.beaconLabel.hidden = false
+        } else {
+            self.beaconLabel.hidden = true
+        }
+    }
+
+    private func showImageOfRegion(region:Region, andZoomOnBeacon beacon:Beacon) {
+        let imageUrlPath = ServerDataManager.sharedInstance().getRegionImageUrl(region.id)
+        let imageUrl = NSURLComponents(string: imageUrlPath)!.URL!
+
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        self.imageView.kf_setImageWithURL(imageUrl, placeholderImage: nil, optionsInfo: nil) {
+            (image, error, cacheType, imageURL) -> () in
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            //            self.activityIndicator.stopAnimating()
+            self.imageView.hidden = false
+            self.imageView.clipsToBounds = true
+//            self.imageView.bounds = CGRectMake(CGFloat(beacon.xCoordinate), CGFloat(beacon.yCoordinate), image!.size.width * 2, image!.size.height * 2)
+//            self.imageView.setNeedsDisplay()
+        }
     }
 }

@@ -22,6 +22,7 @@
 		183A07221B08F9EB0070709D /* HereViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183A07211B08F9EB0070709D /* HereViewController.swift */; };
 		183A07241B091B470070709D /* LocationAuthorizationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183A07231B091B470070709D /* LocationAuthorizationStatus.swift */; };
 		183A07271B092C3D0070709D /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183A07261B092C3D0070709D /* CoreBluetooth.framework */; };
+		183E573D1B09559600F042FC /* LocationUpdateListenerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183E573C1B09559600F042FC /* LocationUpdateListenerProtocol.swift */; };
 		185FAF621B029D8300E92768 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185FAF611B029D8300E92768 /* AppDelegate.swift */; };
 		185FAF691B029D8300E92768 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 185FAF671B029D8300E92768 /* Main.storyboard */; };
 		185FAF6B1B029D8300E92768 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 185FAF6A1B029D8300E92768 /* Images.xcassets */; };
@@ -60,6 +61,7 @@
 		183A07211B08F9EB0070709D /* HereViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HereViewController.swift; sourceTree = "<group>"; };
 		183A07231B091B470070709D /* LocationAuthorizationStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationAuthorizationStatus.swift; sourceTree = "<group>"; };
 		183A07261B092C3D0070709D /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		183E573C1B09559600F042FC /* LocationUpdateListenerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationUpdateListenerProtocol.swift; sourceTree = "<group>"; };
 		185FAF5C1B029D8300E92768 /* ÖzÜ Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ÖzÜ Navigation.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		185FAF601B029D8300E92768 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		185FAF611B029D8300E92768 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -100,12 +102,12 @@
 		182DB3FC1B03646D00FD4514 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				183A07251B0928010070709D /* Load */,
-				183A07201B08F9D90070709D /* Here */,
-				182DB3FE1B03649300FD4514 /* Navigate */,
 				185FAF671B029D8300E92768 /* Main.storyboard */,
 				185FAF851B02A02D00E92768 /* LaunchScreen.xib */,
+				183A07251B0928010070709D /* Load */,
 				182DB3FD1B03647500FD4514 /* Places */,
+				183A07201B08F9D90070709D /* Here */,
+				182DB3FE1B03649300FD4514 /* Navigate */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -113,8 +115,8 @@
 		182DB3FD1B03647500FD4514 /* Places */ = {
 			isa = PBXGroup;
 			children = (
-				18824FA91B03A12F00FB80A2 /* RegionImageViewController.swift */,
 				182DB4131B03706900FD4514 /* RegionListViewController.swift */,
+				18824FA91B03A12F00FB80A2 /* RegionImageViewController.swift */,
 			);
 			name = Places;
 			sourceTree = "<group>";
@@ -130,11 +132,11 @@
 		182DB3FF1B036A7000FD4514 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				182DB4031B036A9000FD4514 /* EntityManager.swift */,
+				182DB4021B036A9000FD4514 /* Entity.swift */,
+				182DB4041B036A9000FD4514 /* Region.swift */,
 				182DB4001B036A9000FD4514 /* Beacon.swift */,
 				182DB4011B036A9000FD4514 /* Connection.swift */,
-				182DB4021B036A9000FD4514 /* Entity.swift */,
-				182DB4031B036A9000FD4514 /* EntityManager.swift */,
-				182DB4041B036A9000FD4514 /* Region.swift */,
 			);
 			name = Entity;
 			sourceTree = "<group>";
@@ -145,6 +147,7 @@
 				182DB40B1B036AA900FD4514 /* NavigationManager.swift */,
 				18FACE651B08EA410019BF68 /* BeaconManager.swift */,
 				183A07231B091B470070709D /* LocationAuthorizationStatus.swift */,
+				183E573C1B09559600F042FC /* LocationUpdateListenerProtocol.swift */,
 			);
 			name = Navigation;
 			sourceTree = "<group>";
@@ -169,8 +172,8 @@
 		183A07251B0928010070709D /* Load */ = {
 			isa = PBXGroup;
 			children = (
-				182DB40D1B036B3400FD4514 /* LoadViewProtocol.swift */,
 				182DB40F1B036BDF00FD4514 /* LoadViewController.swift */,
+				182DB40D1B036B3400FD4514 /* LoadViewProtocol.swift */,
 			);
 			name = Load;
 			sourceTree = "<group>";
@@ -201,8 +204,8 @@
 			children = (
 				185FAF611B029D8300E92768 /* AppDelegate.swift */,
 				182DB4171B038E1C00FD4514 /* Server Data */,
-				182DB40A1B036AA100FD4514 /* Navigation */,
 				182DB3FF1B036A7000FD4514 /* Entity */,
+				182DB40A1B036AA100FD4514 /* Navigation */,
 				182DB3FC1B03646D00FD4514 /* View */,
 				185FAF6A1B029D8300E92768 /* Images.xcassets */,
 				185FAF5F1B029D8300E92768 /* Supporting Files */,
@@ -408,6 +411,7 @@
 			files = (
 				182DB40E1B036B3400FD4514 /* LoadViewProtocol.swift in Sources */,
 				18824FAA1B03A12F00FB80A2 /* RegionImageViewController.swift in Sources */,
+				183E573D1B09559600F042FC /* LocationUpdateListenerProtocol.swift in Sources */,
 				182DB4081B036A9000FD4514 /* EntityManager.swift in Sources */,
 				182DB40C1B036AA900FD4514 /* NavigationManager.swift in Sources */,
 				185FAF621B029D8300E92768 /* AppDelegate.swift in Sources */,
