@@ -12,8 +12,8 @@ import Kingfisher
 public class HereViewController : UIViewController, LocationUpdateListenerProtocol {
     let beaconManager = BeaconManager.sharedInstance()
 
-    var lastDetectedRegion: Region?
-    var lastDetectedBeacon: Beacon?
+    private var currentRegion: Region?
+    private var currentBeacon: Beacon?
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var regionLabel: UILabel!
@@ -60,48 +60,54 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
     }
 
     public func didEnterRegion(region:Region?, byDetectingBeacon detectedBeacon:Beacon?) {
-        if region == nil {
-            self.regionLabel.hidden = true
-            self.beaconLabel.hidden = true
-            self.labelBarView.hidden = true
-            self.imageView.hidden = true
-            return
+        if region == nil { // Means that there are no detected beacons, which means no location
+            eraseCurrentLocationInfo()
+        } else {
+            showDetailsOfRegion(region!, andBeacon: detectedBeacon!)
         }
-        showDetailsOfRegion(region!, andBeacon: detectedBeacon!)
+    }
+
+    private func eraseCurrentLocationInfo() {
+        self.regionLabel.hidden = true
+        self.beaconLabel.hidden = true
+        self.labelBarView.hidden = true
+        self.imageView.hidden = true
+        self.currentBeacon = nil
+        self.currentRegion = nil
     }
 
     private func showDetailsOfRegion(region:Region, andBeacon beacon:Beacon) {
         // Check if the current shown info is up-to-date
-        if let lastRegion = lastDetectedRegion,
-            lastBeacon = lastDetectedBeacon {
+        if let lastRegion = currentRegion,
+            lastBeacon = currentBeacon {
                 if lastRegion == region && lastBeacon == beacon {
                     return
                 }
         }
-        setLabelsOfRegion(region, andBeacon: beacon)
-        showImageOfRegion(region, andZoomOnBeacon: beacon)
+        self.currentRegion = region
+        self.currentBeacon = beacon
+        setLabels()
+        showImage()
     }
 
-    private func setLabelsOfRegion(region:Region, andBeacon beacon:Beacon) {
+    private func setLabels() {
         self.labelBarView.hidden = false
+        self.regionLabel.hidden = true
+        self.beaconLabel.hidden = true
 
-        if let regionName = region.displayName {
+        if let regionName = self.currentRegion!.displayName {
             self.regionLabel.text = regionName
             self.regionLabel.hidden = false
-        } else {
-            self.regionLabel.hidden = true
         }
 
-        if let beaconName = beacon.displayName {
+        if let beaconName = self.currentBeacon!.displayName {
             self.beaconLabel.text = beaconName
             self.beaconLabel.hidden = false
-        } else {
-            self.beaconLabel.hidden = true
         }
     }
 
-    private func showImageOfRegion(region:Region, andZoomOnBeacon beacon:Beacon) {
-        let imageUrlPath = ServerDataManager.sharedInstance().getRegionImageUrl(region.id)
+    private func showImage() {
+        let imageUrlPath = ServerDataManager.sharedInstance().getRegionImageUrl(self.currentRegion!.id)
         let imageUrl = NSURLComponents(string: imageUrlPath)!.URL!
 
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
