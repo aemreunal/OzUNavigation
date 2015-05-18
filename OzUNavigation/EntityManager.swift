@@ -204,7 +204,9 @@ public class EntityManager {
     }
     
     private func getJsonUrlRequest(#url: String) -> NSMutableURLRequest {
-        return AFJSONRequestSerializer().requestWithMethod("POST", URLString: url, parameters: serverManager.getQueryAuthenticationJsonAsDict(), error: nil)
+        let request = AFJSONRequestSerializer().requestWithMethod("POST", URLString: url, parameters: serverManager.getQueryAuthenticationJsonAsDict(), error: nil)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        return request
     }
     
     public func getRegionsAsDisplayList() -> ([Int], [String]) {
