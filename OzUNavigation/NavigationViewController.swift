@@ -8,37 +8,60 @@
 
 import UIKit
 
-class NavigationViewController : UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+public class NavigationViewController : UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, LocationUpdateListenerProtocol {
+    private var currentRegion: Region?
+    private var currentBeacon: Beacon?
+
     private var regionIds:[Int]!
     private var regionList:[String] = [String]()
 
     @IBOutlet weak var sourceRegionPicker: UIPickerView!
     @IBOutlet weak var destinationRegionPicker: UIPickerView!
-    override func viewDidLoad() {
+
+    public override func viewDidLoad() {
         super.viewDidLoad()
+        BeaconManager.sharedInstance().registerForLocationUpdates(self)
         let (regionIdsArray, regionListArray) = EntityManager.sharedInstance().getRegionsAsDisplayList()
         self.regionIds = regionIdsArray
         self.regionList = regionListArray
     }
 
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if currentRegion != nil && pickerView == sourceRegionPicker {
+            return regionList.count + 1 // +1 for navigating from current location
+        }
         return regionList.count
     }
 
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+        if currentRegion != nil && pickerView == sourceRegionPicker {
+            if row == 0 {
+                return "Current location"
+            } else {
+                return self.regionList[row - 1]
+            }
+        }
         return self.regionList[row]
     }
 
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }
 
-    @IBAction func startNavigationButtonTapped() {
-        let sourceRow = sourceRegionPicker.selectedRowInComponent(0)
-        let sourceRegionId = regionIds[sourceRow]
+    public func didEnterRegion(region:Region?, byDetectingBeacon detectedBeacon:Beacon?) {
+        if region == nil {
+            self.currentRegion = nil
+            self.currentBeacon = nil
+        } else {
+            self.currentRegion = region!
+            self.currentBeacon = detectedBeacon!
+        }
+        self.sourceRegionPicker.reloadAllComponents()
+    }
 
-        let destinationRow = destinationRegionPicker.selectedRowInComponent(0)
-        let destinationRegionId = regionIds[destinationRow]
+    @IBAction func startNavigationButtonTapped() {
+        let sourceRegionId = getSelectedSourceRegionId()
+        let destinationRegionId = getSelectedDestinationRegionId()
 
         let path = NavigationManager.sharedInstance().findRoute(fromRegionWithId: sourceRegionId, toRegionWithId: destinationRegionId)
 
@@ -47,5 +70,22 @@ class NavigationViewController : UIViewController, UIPickerViewDelegate, UIPicke
         } else {
             println("There is no path between region with ID:\(sourceRegionId) and ID:\(destinationRegionId)")
         }
+    }
+
+    private func getSelectedSourceRegionId() -> Int {
+        let sourceRow = sourceRegionPicker.selectedRowInComponent(0)
+        if currentRegion != nil {
+            if sourceRow == 0 { // If "Current location" is chosen as source region
+                return currentRegion!.id
+            } else {
+                return regionIds[sourceRow - 1]
+            }
+        }
+        return regionIds[sourceRow]
+    }
+
+    private func getSelectedDestinationRegionId() -> Int {
+        let destinationRow = destinationRegionPicker.selectedRowInComponent(0)
+        return regionIds[destinationRow]
     }
 }
