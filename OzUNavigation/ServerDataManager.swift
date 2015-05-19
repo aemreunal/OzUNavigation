@@ -92,6 +92,10 @@ public class ServerDataManager {
         return getRegionUrl() + "/\(regionId)/beacons"
     }
 
+    public func getBeaconInfoUrl(regionId:Int, _ beaconId:Int) -> String {
+        return getRegionUrl() + "/\(regionId)/beacons/\(beaconId)/info"
+    }
+
     public func getConnectionUrl() -> String {
         return getServerAddress() + "/connections"
     }
