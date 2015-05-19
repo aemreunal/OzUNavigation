@@ -129,8 +129,13 @@ public class BeaconManager: NSObject, CLLocationManagerDelegate {
         }
     }
 
-    public func registerForLocationUpdates(listener: LocationUpdateListenerProtocol) {
+    public func registerForLocationUpdates(listener: LocationUpdateListenerProtocol) -> Int {
         self.locationUpdateListeners.append(listener)
+        return self.locationUpdateListeners.count - 1 // The index of the last appended listener
+    }
+
+    public func deregisterFromLocationUpdates(listenerQueueIndex: Int) {
+        self.locationUpdateListeners.removeAtIndex(listenerQueueIndex)
     }
 
     private func resetLocationTimer() {
