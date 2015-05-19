@@ -95,4 +95,8 @@ public class ServerDataManager {
     public func getConnectionUrl() -> String {
         return getServerAddress() + "/connections"
     }
+
+    public func getConnectionImageUrl(connectionId:Int) -> String {
+        return getConnectionUrl() + "/\(connectionId)/image"
+    }
 }
