@@ -26,10 +26,10 @@ public class EntityManager {
     private(set) var beaconsToConnections = [Int:[Connection]]() // Map Beacon ID to Connection
 
     // AFNetworking Manager
-    let requestManager: AFHTTPRequestOperationManager
+    private let requestManager: AFHTTPRequestOperationManager
 
     // Server Data Manager
-    let serverManager = ServerDataManager.sharedInstance()
+    private let serverManager = ServerDataManager.sharedInstance()
 
     // Request operations
     private var regionRequestOperation:AFHTTPRequestOperation!
