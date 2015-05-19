@@ -29,6 +29,7 @@
 		185FAF7A1B029D8300E92768 /* OzUNavigationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185FAF791B029D8300E92768 /* OzUNavigationTests.swift */; };
 		185FAF841B029DF600E92768 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 185FAF831B029DF600E92768 /* CoreLocation.framework */; };
 		185FAF861B02A02D00E92768 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185FAF851B02A02D00E92768 /* LaunchScreen.xib */; };
+		1874FFF21B0A164B00168CB4 /* NavigationDirectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1874FFF11B0A164B00168CB4 /* NavigationDirectionViewController.swift */; };
 		18824FAA1B03A12F00FB80A2 /* RegionImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18824FA91B03A12F00FB80A2 /* RegionImageViewController.swift */; };
 		18FACE661B08EA410019BF68 /* BeaconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FACE651B08EA410019BF68 /* BeaconManager.swift */; };
 		A457B264CD9A915D67A9B5D7 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C3E9FCEEF1E0745A567EB7 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -72,6 +73,7 @@
 		185FAF791B029D8300E92768 /* OzUNavigationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OzUNavigationTests.swift; sourceTree = "<group>"; };
 		185FAF831B029DF600E92768 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		185FAF851B02A02D00E92768 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		1874FFF11B0A164B00168CB4 /* NavigationDirectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationDirectionViewController.swift; sourceTree = "<group>"; };
 		18824FA91B03A12F00FB80A2 /* RegionImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionImageViewController.swift; sourceTree = "<group>"; };
 		18FACE651B08EA410019BF68 /* BeaconManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconManager.swift; sourceTree = "<group>"; };
 		D9C3E9FCEEF1E0745A567EB7 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				182DB3FA1B035F3E00FD4514 /* NavigationViewController.swift */,
+				1874FFF11B0A164B00168CB4 /* NavigationDirectionViewController.swift */,
 			);
 			name = Navigate;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				182DB3FB1B035F3E00FD4514 /* NavigationViewController.swift in Sources */,
 				182DB4051B036A9000FD4514 /* Beacon.swift in Sources */,
 				183A07241B091B470070709D /* LocationAuthorizationStatus.swift in Sources */,
+				1874FFF21B0A164B00168CB4 /* NavigationDirectionViewController.swift in Sources */,
 				18FACE661B08EA410019BF68 /* BeaconManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

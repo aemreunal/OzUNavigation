@@ -15,6 +15,8 @@ public class NavigationViewController : UIViewController, UIPickerViewDelegate, 
     private var regionIds:[Int]!
     private var regionList:[String] = [String]()
 
+    private var calculatedPath: [Int]! // Used for storing the path after it's computed in shouldPerformSegue, for prepareForSegue
+
     @IBOutlet weak var sourceRegionPicker: UIPickerView!
     @IBOutlet weak var destinationRegionPicker: UIPickerView!
 
@@ -59,17 +61,41 @@ public class NavigationViewController : UIViewController, UIPickerViewDelegate, 
         self.sourceRegionPicker.reloadAllComponents()
     }
 
-    @IBAction func startNavigationButtonTapped() {
-        let sourceRegionId = getSelectedSourceRegionId()
-        let destinationRegionId = getSelectedDestinationRegionId()
-
-        let path = NavigationManager.sharedInstance().findRoute(fromRegionWithId: sourceRegionId, toRegionWithId: destinationRegionId)
-
-        if path != nil {
-            println(path!)
-        } else {
-            println("There is no path between region with ID:\(sourceRegionId) and ID:\(destinationRegionId)")
+    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "startNavigationSegue" {
+            let destination = segue.destinationViewController as! NavigationDirectionViewController
+            destination.path = self.calculatedPath
         }
+    }
+
+    public override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+        if let segueIdentifier = identifier {
+            if segueIdentifier == "startNavigationSegue" {
+                let sourceRegionId = getSelectedSourceRegionId()
+                let destinationRegionId = getSelectedDestinationRegionId()
+
+                // Check whether you're trying to navigate to the same region
+                if sourceRegionId == destinationRegionId {
+                    let destinationAlert = UIAlertController(title: "Same Region", message: "You're already at your destination!", preferredStyle: UIAlertControllerStyle.Alert)
+                    destinationAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                    self.showViewController(destinationAlert, sender: self)
+                    return false
+                }
+
+                // Check whether there is a path
+                let path = NavigationManager.sharedInstance().findRoute(fromRegionWithId: sourceRegionId, toRegionWithId: destinationRegionId)
+                if path == nil {
+                    let destinationAlert = UIAlertController(title: "No Route", message: "There are no routes between the selected places.", preferredStyle: UIAlertControllerStyle.Alert)
+                    destinationAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                    self.showViewController(destinationAlert, sender: self)
+                    return false                }
+
+                // Store calculated path, perform segue
+                self.calculatedPath = path!
+                return true
+            }
+        }
+        return true
     }
 
     private func getSelectedSourceRegionId() -> Int {
