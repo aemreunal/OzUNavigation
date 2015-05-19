@@ -92,8 +92,13 @@ public class NavigationDirectionViewController : UIViewController, LocationUpdat
     }
 
     @IBAction func stopButtonTapped(sender: UIBarButtonItem) {
-        // TODO Ask whether the user is sure
-        stopNavigation()
+        let confirmationAlert = UIAlertController(title: "Stop Navigation", message: "Are you sure you want to stop the navigation?", preferredStyle: UIAlertControllerStyle.Alert)
+        confirmationAlert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: {
+            (action: UIAlertAction!) -> Void in
+            self.stopNavigation()
+        }))
+        confirmationAlert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
+        self.showViewController(confirmationAlert, sender: self)
     }
 
     private func endNavigationWithSuccess() {
