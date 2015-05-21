@@ -116,29 +116,30 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
             (CGFloat(-self.currentBeacon!.xCoordinate) / IMAGE_SCALE_SIZE) + (self.view.bounds.width / 2.0),
             (CGFloat(-self.currentBeacon!.yCoordinate) / IMAGE_SCALE_SIZE) + (self.view.bounds.height / 2.0),
             self.imageView.frame.size.width,
-            self.imageView.frame.size.height);
+            self.imageView.frame.size.height)
         self.imageView.hidden = false
 
         self.activityIndicator.stopAnimating()
-        imageAdjusted = true
+        self.imageAdjusted = true
 
+        // Refresh views
         self.view.setNeedsDisplay()
         self.imageView.setNeedsDisplay()
     }
 
     private func setLabels() {
         self.labelBarView.hidden = false
-        self.regionLabel.hidden = true
-        self.beaconLabel.hidden = true
         for label in self.unknownLocationLabels {
             label.hidden = true
         }
 
+        self.regionLabel.hidden = true
         if let regionName = self.currentRegion!.displayName {
             self.regionLabel.text = regionName
             self.regionLabel.hidden = false
         }
 
+        self.beaconLabel.hidden = true
         if let beaconName = self.currentBeacon!.displayName {
             self.beaconLabel.text = beaconName
             self.beaconLabel.hidden = false
@@ -155,6 +156,7 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             self.imageView.clipsToBounds = false
             self.scaleImage(image!)
+            // Refresh views
             self.view.setNeedsDisplay()
             self.imageView.setNeedsDisplay()
         }
