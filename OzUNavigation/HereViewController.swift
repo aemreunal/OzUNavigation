@@ -9,8 +9,10 @@
 import UIKit
 import Kingfisher
 
+private let IMAGE_SCALE_SIZE: CGFloat = 1.5
+
 public class HereViewController : UIViewController, LocationUpdateListenerProtocol {
-    let beaconManager = BeaconManager.sharedInstance()
+    private let beaconManager = BeaconManager.sharedInstance()
 
     private var currentRegion: Region?
     private var currentBeacon: Beacon?
@@ -34,6 +36,10 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
 
     public override func viewDidAppear(animated: Bool) {
         askForLocationAuthorization()
+        // Center image to Beacon if an image exists (an image exists if there is a region)
+        if self.currentRegion != nil {
+            self.centerImageToBeacon()
+        }
     }
 
     private func askForLocationAuthorization() {
@@ -90,24 +96,34 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
 
     private func showDetailsOfRegion(region:Region, andBeacon beacon:Beacon) {
         // Check if the current shown info is up-to-date
-        if let lastRegion = currentRegion,
-            lastBeacon = currentBeacon {
-                if lastRegion == region && lastBeacon == beacon {
-                    if !imageAdjusted {
-                        self.imageView.frame = CGRectMake(CGFloat(-beacon.xCoordinate) + (self.view.bounds.width / 2), CGFloat(-beacon.yCoordinate) + (self.view.bounds.height / 2), self.imageView.frame.size.width, self.imageView.frame.size.height);
-                        self.imageView.hidden = false
-
-                        self.activityIndicator.stopAnimating()
-                        imageAdjusted = true
-                    }
-                    return
+        if let lastRegion = currentRegion, lastBeacon = currentBeacon {
+            if lastRegion == region && lastBeacon == beacon {
+                if !imageAdjusted {
+                    self.centerImageToBeacon()
                 }
+                return
+            }
         }
         self.currentRegion = region
         self.currentBeacon = beacon
         setLabels()
         showImage()
         checkForLocationInfo()
+    }
+
+    private func centerImageToBeacon() {
+        self.imageView.frame = CGRectMake(
+            (CGFloat(-self.currentBeacon!.xCoordinate) / IMAGE_SCALE_SIZE) + (self.view.bounds.width / 2.0),
+            (CGFloat(-self.currentBeacon!.yCoordinate) / IMAGE_SCALE_SIZE) + (self.view.bounds.height / 2.0),
+            self.imageView.frame.size.width,
+            self.imageView.frame.size.height);
+        self.imageView.hidden = false
+
+        self.activityIndicator.stopAnimating()
+        imageAdjusted = true
+
+        self.view.setNeedsDisplay()
+        self.imageView.setNeedsDisplay()
     }
 
     private func setLabels() {
@@ -138,7 +154,23 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
             (image, error, cacheType, imageURL) -> () in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             self.imageView.clipsToBounds = false
+            self.scaleImage(image!)
+            self.view.setNeedsDisplay()
+            self.imageView.setNeedsDisplay()
         }
+    }
+
+    private func scaleImage(image:UIImage) {
+        let size = CGSizeMake(image.size.width / IMAGE_SCALE_SIZE, image.size.height / IMAGE_SCALE_SIZE)
+        let hasAlpha = false
+        let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
+
+        UIGraphicsBeginImageContextWithOptions(size, !hasAlpha, scale)
+        image.drawInRect(CGRect(origin: CGPointZero, size: size))
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        self.imageView.image = scaledImage
     }
 
     private func checkForLocationInfo() {
