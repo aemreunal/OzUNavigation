@@ -31,6 +31,10 @@ public class BeaconManager: NSObject, CLLocationManagerDelegate {
     // Whether regions are currently being listened to
     private(set) var listeningToRegions = false
 
+    // Compass setting
+    private var hereViewController: HereViewController!
+    private(set) var shouldOrientToCompass = false
+
     class func sharedInstance() -> BeaconManager {
         self.instance = (self.instance ?? BeaconManager())
         return self.instance
@@ -46,6 +50,8 @@ public class BeaconManager: NSObject, CLLocationManagerDelegate {
     private func initLocationManager() {
         let locationManager = CLLocationManager()
         locationManager.delegate = self
+//        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+//        locationManager.distanceFilter = kCLHeadingFilterNone
         self.locationManager = locationManager
     }
 
@@ -110,7 +116,7 @@ public class BeaconManager: NSObject, CLLocationManagerDelegate {
         listeningToRegions = false
     }
 
-    // Location updates
+    // Beacon updates
 
     public func locationManager(manager: CLLocationManager!, didRangeBeacons beacons: [AnyObject]!, inRegion region: CLBeaconRegion!) {
          if let rangedBeacon = beacons.first as? CLBeacon {
@@ -145,8 +151,25 @@ public class BeaconManager: NSObject, CLLocationManagerDelegate {
         self.locationUpdateTimer = NSTimer.scheduledTimerWithTimeInterval(LOCATION_RESET_TIME_SEC, target: self, selector: "resetLocation:", userInfo: nil, repeats: true)
     }
 
-    func resetLocation(timer: NSTimer) {
+    private func resetLocation(timer: NSTimer) {
         notifyListenersOfLocationUpdate(nil, nil)
         self.locationUpdateTimer?.invalidate()
+    }
+
+    // Compass updates
+    public func toggleCompassForHere(hereViewController: HereViewController) {
+        self.hereViewController = hereViewController
+        shouldOrientToCompass = !shouldOrientToCompass
+        if shouldOrientToCompass {
+            locationManager.startUpdatingHeading()
+        } else {
+            locationManager.stopUpdatingHeading()
+            hereViewController.rotateMap(0, animated: false)
+        }
+    }
+
+    public func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
+        let rotation: Double = -newHeading.trueHeading * M_PI / 180.0
+        hereViewController.rotateMap(rotation, animated: true)
     }
 }

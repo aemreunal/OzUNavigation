@@ -20,7 +20,12 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
     // Whether the image has been centered on the beacon
     private var imageAdjusted = false
 
+    // Compass rotation calculations
+    private var mapCenterScaled: CGPoint!
+    private var beaconCoorScaled: CGPoint!
+
     @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet weak var compassButton: UIButton!
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var regionLabel: UILabel!
@@ -106,6 +111,9 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
         }
         self.currentRegion = region
         self.currentBeacon = beacon
+        // Compass calculation
+        self.mapCenterScaled = CGPoint(x: (CGFloat(region.regionWidth) / 2.0) / IMAGE_SCALE_SIZE, y: (CGFloat(region.regionHeight) / 2.0) / IMAGE_SCALE_SIZE)
+        self.beaconCoorScaled = CGPoint(x: CGFloat(beacon.xCoordinate) / IMAGE_SCALE_SIZE, y: CGFloat(beacon.yCoordinate) / IMAGE_SCALE_SIZE)
         setLabels()
         showImage()
         checkForLocationInfo()
@@ -188,5 +196,43 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
             let destination = segue.destinationViewController as! InfoViewController
             destination.beacon = self.currentBeacon!
         }
+    }
+    @IBAction func compassButtonTapped(sender: UIButton) {
+        beaconManager.toggleCompassForHere(self)
+    }
+
+    public func rotateMap(rotation: Double, animated:Bool) {
+        if animated {
+            UIView.animateWithDuration(0.15) {
+                self.setRotation(rotation)
+            }
+        } else {
+            self.setRotation(rotation)
+        }
+    }
+
+    private func setRotation(rotation: Double) {
+        self.imageView.transform = self.CGAffineTransformMakeRotationOf(
+            CGFloat(rotation),
+            aroundPoint: CGPoint(
+                x: self.beaconCoorScaled.x - self.mapCenterScaled.x,
+                y: self.beaconCoorScaled.y - self.mapCenterScaled.y
+            )
+        )
+    }
+
+    /// The point represents the deviation from the center point of the image.
+    ///
+    /// For a 100x100 image:
+    ///
+    /// CGPoint(x = -50, y = -50) -> image will be rotated from the left top
+    ///
+    /// CGPoint(x = 50, y = 50) -> image will be rotated from the right bottom
+    private func CGAffineTransformMakeRotationOf(angle: CGFloat, aroundPoint pt: CGPoint) -> CGAffineTransform {
+        let fx: CGFloat = pt.x
+        let fy: CGFloat = pt.y
+        let fcos: CGFloat = cos(angle)
+        let fsin: CGFloat = sin(angle)
+        return CGAffineTransformMake(fcos, fsin, -fsin, fcos, fx - fx * fcos + fy * fsin, fy - fx * fsin - fy * fcos)
     }
 }

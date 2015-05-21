@@ -363,11 +363,22 @@
                                     </label>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="50C-Vm-90T">
                                         <rect key="frame" x="570" y="22" width="22" height="22"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <segue destination="sHi-NK-yjd" kind="presentation" identifier="infoSegue" id="Ljr-KE-uwE"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3CF-Jy-KIh">
+                                        <rect key="frame" x="8" y="22" width="22" height="22"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="compassButtonTapped:" destination="GqR-Sl-KIb" eventType="touchUpInside" id="reZ-Xd-1ci"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -376,11 +387,13 @@
                                     <constraint firstAttribute="height" constant="66" id="1ql-Q7-L7b"/>
                                     <constraint firstItem="A6K-ov-4P1" firstAttribute="top" secondItem="IGb-8q-Rbz" secondAttribute="top" constant="8" id="38S-Hr-XRJ"/>
                                     <constraint firstItem="A6K-ov-4P1" firstAttribute="trailing" secondItem="50C-Vm-90T" secondAttribute="trailing" id="6Us-q0-PIk"/>
+                                    <constraint firstItem="3CF-Jy-KIh" firstAttribute="leading" secondItem="IGb-8q-Rbz" secondAttribute="leading" constant="8" id="LsO-sz-IL0"/>
                                     <constraint firstAttribute="trailing" secondItem="Xob-BZ-NEP" secondAttribute="trailing" constant="8" id="UEU-Vw-mKC"/>
                                     <constraint firstItem="Xob-BZ-NEP" firstAttribute="top" secondItem="A6K-ov-4P1" secondAttribute="bottom" constant="8" id="WDB-CS-8Ct"/>
                                     <constraint firstItem="Xob-BZ-NEP" firstAttribute="leading" secondItem="IGb-8q-Rbz" secondAttribute="leading" constant="8" id="a7d-ij-H0i"/>
                                     <constraint firstAttribute="bottom" secondItem="Xob-BZ-NEP" secondAttribute="bottom" constant="8" id="kW5-vU-x1F"/>
                                     <constraint firstAttribute="centerY" secondItem="50C-Vm-90T" secondAttribute="centerY" id="lXV-cb-Igw"/>
+                                    <constraint firstAttribute="centerY" secondItem="3CF-Jy-KIh" secondAttribute="centerY" id="nBf-f6-KlW"/>
                                     <constraint firstItem="A6K-ov-4P1" firstAttribute="leading" secondItem="IGb-8q-Rbz" secondAttribute="leading" constant="8" id="q7p-IG-MBL"/>
                                     <constraint firstAttribute="trailing" secondItem="50C-Vm-90T" secondAttribute="trailing" constant="8" id="rhw-go-aIL"/>
                                     <constraint firstAttribute="trailing" secondItem="A6K-ov-4P1" secondAttribute="trailing" constant="8" id="xTp-WV-1sG"/>
@@ -408,6 +421,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="Xre-n6-NFq" id="M96-6o-spO"/>
                         <outlet property="beaconLabel" destination="A6K-ov-4P1" id="9aE-Dm-mSO"/>
+                        <outlet property="compassButton" destination="3CF-Jy-KIh" id="FJz-Xx-M1S"/>
                         <outlet property="imageView" destination="hxC-r0-vCf" id="eWs-s8-J5q"/>
                         <outlet property="infoButton" destination="50C-Vm-90T" id="7qB-iT-lVr"/>
                         <outlet property="labelBarView" destination="IGb-8q-Rbz" id="KkZ-aR-MGr"/>
