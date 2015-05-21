@@ -15,6 +15,9 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
     private var currentRegion: Region?
     private var currentBeacon: Beacon?
 
+    // Whether the image has been centered on the beacon
+    private var imageAdjusted = false
+
     @IBOutlet weak var infoButton: UIButton!
 
     @IBOutlet weak var imageView: UIImageView!
@@ -90,6 +93,13 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
         if let lastRegion = currentRegion,
             lastBeacon = currentBeacon {
                 if lastRegion == region && lastBeacon == beacon {
+                    if !imageAdjusted {
+                        self.imageView.frame = CGRectMake(CGFloat(-beacon.xCoordinate) + (self.view.bounds.width / 2), CGFloat(-beacon.yCoordinate) + (self.view.bounds.height / 2), self.imageView.frame.size.width, self.imageView.frame.size.height);
+                        self.imageView.hidden = false
+
+                        self.activityIndicator.stopAnimating()
+                        imageAdjusted = true
+                    }
                     return
                 }
         }
@@ -104,7 +114,6 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
         self.labelBarView.hidden = false
         self.regionLabel.hidden = true
         self.beaconLabel.hidden = true
-        self.activityIndicator.stopAnimating()
         for label in self.unknownLocationLabels {
             label.hidden = true
         }
@@ -128,10 +137,7 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
         self.imageView.kf_setImageWithURL(imageUrl, placeholderImage: nil, optionsInfo: nil) {
             (image, error, cacheType, imageURL) -> () in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-            self.imageView.hidden = false
-            self.imageView.clipsToBounds = true
-//            self.imageView.bounds = CGRectMake(CGFloat(beacon.xCoordinate), CGFloat(beacon.yCoordinate), image!.size.width * 2, image!.size.height * 2)
-//            self.imageView.setNeedsDisplay()
+            self.imageView.clipsToBounds = false
         }
     }
 
