@@ -15,10 +15,15 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
     private var currentRegion: Region?
     private var currentBeacon: Beacon?
 
+    @IBOutlet weak var infoButton: UIButton!
+
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var regionLabel: UILabel!
     @IBOutlet weak var beaconLabel: UILabel!
     @IBOutlet weak var labelBarView: UIView!
+    @IBOutlet var unknownLocationLabels: [UILabel]!
+
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     public override func viewDidLoad() {
         beaconManager.registerForLocationUpdates(self)
@@ -74,6 +79,10 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
         self.imageView.hidden = true
         self.currentBeacon = nil
         self.currentRegion = nil
+        self.activityIndicator.startAnimating()
+        for label in self.unknownLocationLabels {
+            label.hidden = false
+        }
     }
 
     private func showDetailsOfRegion(region:Region, andBeacon beacon:Beacon) {
@@ -88,12 +97,17 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
         self.currentBeacon = beacon
         setLabels()
         showImage()
+        checkForLocationInfo()
     }
 
     private func setLabels() {
         self.labelBarView.hidden = false
         self.regionLabel.hidden = true
         self.beaconLabel.hidden = true
+        self.activityIndicator.stopAnimating()
+        for label in self.unknownLocationLabels {
+            label.hidden = true
+        }
 
         if let regionName = self.currentRegion!.displayName {
             self.regionLabel.text = regionName
@@ -114,11 +128,25 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
         self.imageView.kf_setImageWithURL(imageUrl, placeholderImage: nil, optionsInfo: nil) {
             (image, error, cacheType, imageURL) -> () in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-            //            self.activityIndicator.stopAnimating()
             self.imageView.hidden = false
             self.imageView.clipsToBounds = true
 //            self.imageView.bounds = CGRectMake(CGFloat(beacon.xCoordinate), CGFloat(beacon.yCoordinate), image!.size.width * 2, image!.size.height * 2)
 //            self.imageView.setNeedsDisplay()
+        }
+    }
+
+    private func checkForLocationInfo() {
+        if self.currentBeacon!.hasLocationInfo {
+            self.infoButton.hidden = false
+        } else {
+            self.infoButton.hidden = true
+        }
+    }
+
+    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "infoSegue" {
+            let destination = segue.destinationViewController as! InfoViewController
+            destination.beacon = self.currentBeacon!
         }
     }
 }

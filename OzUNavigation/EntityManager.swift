@@ -94,9 +94,6 @@ public class EntityManager {
         let request:AFHTTPRequestOperation = requestManager.HTTPRequestOperationWithRequest(jsonUrlRequest,
             success: handleConnectionRequestSuccess,
             failure: handleRequestFailure)
-//        for beaconRequest in beaconRequestOperations {
-//            request.addDependency(beaconRequest)
-//        }
         self.connectionRequestOperation = request
         println("Connection request job created.")
     }
@@ -217,6 +214,16 @@ public class EntityManager {
     private func getJsonUrlRequest(#url: String) -> NSMutableURLRequest {
         let request = AFJSONRequestSerializer().requestWithMethod("POST", URLString: url, parameters: serverManager.getQueryAuthenticationJsonAsDict(), error: nil)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("*/*", forHTTPHeaderField: "Accept")
+        request.setValue(nil, forHTTPHeaderField: "Accept-Language")
+        return request
+    }
+
+    private func getHttpUrlRequest(#url: String) -> NSMutableURLRequest {
+        let request = AFHTTPRequestSerializer().requestWithMethod("POST", URLString: url, parameters: serverManager.getQueryAuthenticationJsonAsDict(), error: nil)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("*/*", forHTTPHeaderField: "Accept")
+        request.setValue(nil, forHTTPHeaderField: "Accept-Language")
         return request
     }
 
@@ -234,5 +241,13 @@ public class EntityManager {
         }
 
         return (regionIds, regionTableItems)
+    }
+
+    public func getLocationInfoOfBeaconWithId(beaconId:Int, inRegionWithId regionId:Int, successHandler handler:(AFHTTPRequestOperation!, AnyObject!) -> Void) {
+        let jsonUrlRequest = getHttpUrlRequest(url: serverManager.getBeaconInfoUrl(regionId, beaconId))
+        let request:AFHTTPRequestOperation = requestManager.HTTPRequestOperationWithRequest(jsonUrlRequest,
+            success: handler,
+            failure: handleRequestFailure)
+        request.start()
     }
 }
