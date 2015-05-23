@@ -219,14 +219,6 @@ public class EntityManager {
         return request
     }
 
-    private func getHttpUrlRequest(#url: String) -> NSMutableURLRequest {
-        let request = AFHTTPRequestSerializer().requestWithMethod("POST", URLString: url, parameters: serverManager.getQueryAuthenticationJsonAsDict(), error: nil)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("*/*", forHTTPHeaderField: "Accept")
-        request.setValue(nil, forHTTPHeaderField: "Accept-Language")
-        return request
-    }
-
     public func getRegionsAsDisplayList() -> ([Int], [String]) {
         let regionIds:[Int] = self.regions.keys.array
         var regionTableItems:[String] = [String]()
@@ -244,10 +236,11 @@ public class EntityManager {
     }
 
     public func getLocationInfoOfBeaconWithId(beaconId:Int, inRegionWithId regionId:Int, successHandler handler:(AFHTTPRequestOperation!, AnyObject!) -> Void) {
-        let jsonUrlRequest = getHttpUrlRequest(url: serverManager.getBeaconInfoUrl(regionId, beaconId))
+        let jsonUrlRequest = getJsonUrlRequest(url: serverManager.getBeaconInfoUrl(regionId, beaconId))
+        jsonUrlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let request:AFHTTPRequestOperation = requestManager.HTTPRequestOperationWithRequest(jsonUrlRequest,
             success: handler,
-            failure: handleRequestFailure)
+            failure: handler)
         request.start()
     }
 }

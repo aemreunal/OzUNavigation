@@ -14,7 +14,6 @@ public class InfoViewController: UIViewController {
 
     @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var titleLabel: UINavigationItem!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -29,14 +28,20 @@ public class InfoViewController: UIViewController {
     }
 
     private func setContent() {
-//        EntityManager.sharedInstance().getLocationInfoOfBeaconWithId(beacon.id, inRegionWithId: beacon.region.id) {
-//            (operation:AFHTTPRequestOperation!, response:AnyObject!) -> Void in
-//            self.activityIndicator.stopAnimating()
-//            println(response)
-//        }
+        EntityManager.sharedInstance().getLocationInfoOfBeaconWithId(beacon.id, inRegionWithId: beacon.region.id) {
+            (operation:AFHTTPRequestOperation!, response:AnyObject!) -> Void in
+            if response is NSError {
+                operation.responseData
+                self.webView.loadHTMLString(operation.responseString, baseURL: operation.request.URL!)
+            }
+        }
     }
 
     @IBAction func closeButtonTapped(sender: UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+
+//    public func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+//        return self.webView
+//    }
 }
