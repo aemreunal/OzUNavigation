@@ -40,42 +40,18 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
     }
 
     public override func viewDidAppear(animated: Bool) {
-        askForLocationAuthorization()
+        LocationAuthorizationHelper.askForLocationAuthorization(self.tabBarController!)
         // Center image to Beacon if an image exists (an image exists if there is a region)
         if self.currentRegion != nil {
             self.centerImageToBeacon()
         }
     }
 
-    private func askForLocationAuthorization() {
-        switch beaconManager.locationAuthorizationStatus() {
-        case .CanAsk:
-            requestLocationAuthorization()
-            // TODO Add different messages for different situations
-        case .Authorized:
-            beaconManager.startRangingBeacons()
-        default:
-            println("Not allowed")
+    public override func viewWillDisappear(animated: Bool) {
+        if beaconManager.shouldOrientToCompass { // If compass orientation is currently on
+            beaconManager.toggleCompassForHere(self)
+            eraseCurrentLocationInfo()
         }
-    }
-
-    private func requestLocationAuthorization() {
-        let alertController = UIAlertController(title: "Location Authorization", message: "In order to show you your current location and help you navigate, you must allow the use of Location Services. Would you like to allow?", preferredStyle: UIAlertControllerStyle.Alert)
-
-        let allowAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) {
-            (action: UIAlertAction!) in
-            self.beaconManager.requestAuthorization()
-        }
-        alertController.addAction(allowAction)
-
-        let disallowAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Default) {
-            (action: UIAlertAction!) in
-            self.tabBarController!.selectedIndex = 0
-            println("Didn't allow")
-        }
-        alertController.addAction(disallowAction)
-
-        presentViewController(alertController, animated: true, completion: nil)
     }
 
     public func didEnterRegion(region:Region?, byDetectingBeacon detectedBeacon:Beacon?) {
@@ -111,15 +87,20 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
         }
         self.currentRegion = region
         self.currentBeacon = beacon
+        self.imageAdjusted = false
         // Compass calculation
         self.mapCenterScaled = CGPoint(x: (CGFloat(region.regionWidth) / 2.0) / IMAGE_SCALE_SIZE, y: (CGFloat(region.regionHeight) / 2.0) / IMAGE_SCALE_SIZE)
         self.beaconCoorScaled = CGPoint(x: CGFloat(beacon.xCoordinate) / IMAGE_SCALE_SIZE, y: CGFloat(beacon.yCoordinate) / IMAGE_SCALE_SIZE)
         setLabels()
         showImage()
         checkForLocationInfo()
+        self.centerImageToBeacon()
     }
 
     private func centerImageToBeacon() {
+        if self.imageView.image == nil {
+            return
+        }
         self.imageView.frame = CGRectMake(
             (CGFloat(-self.currentBeacon!.xCoordinate) / IMAGE_SCALE_SIZE) + (self.view.bounds.width / 2.0),
             (CGFloat(-self.currentBeacon!.yCoordinate) / IMAGE_SCALE_SIZE) + (self.view.bounds.height / 2.0),
