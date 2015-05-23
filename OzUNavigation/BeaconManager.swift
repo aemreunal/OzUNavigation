@@ -18,7 +18,6 @@ public class BeaconManager: NSObject, CLLocationManagerDelegate {
 
     // Location & Bluetooth
     private var locationManager: CLLocationManager! // To monitor for beacon regions
-    private let bluetoothManager = CBCentralManager() // To check for Bluetooth power state
     private var rangedBeaconRegions = [CLBeaconRegion]() // To store created beacon regions
 
     // Entity Manager
@@ -58,8 +57,6 @@ public class BeaconManager: NSObject, CLLocationManagerDelegate {
     public func locationAuthorizationStatus() -> LocationAuthorizationStatus {
         if !CLLocationManager.locationServicesEnabled() {
             return LocationAuthorizationStatus.NotEnabled
-        } else if bluetoothManager.state == CBCentralManagerState.PoweredOff {
-            return LocationAuthorizationStatus.BluetoothDisabled
         } else {
             switch CLLocationManager.authorizationStatus() {
             case .AuthorizedWhenInUse, .AuthorizedAlways:
