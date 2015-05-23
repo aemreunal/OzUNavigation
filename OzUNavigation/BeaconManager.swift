@@ -71,6 +71,7 @@ public class BeaconManager: NSObject, CLLocationManagerDelegate {
 
     public func requestAuthorization() {
         locationManager.requestWhenInUseAuthorization()
+        startRangingBeacons()
     }
 
     // Beacons
