@@ -199,6 +199,11 @@ public class HereViewController : UIViewController, LocationUpdateListenerProtoc
     }
     @IBAction func compassButtonTapped(sender: UIButton) {
         beaconManager.toggleCompassForHere(self)
+        if beaconManager.shouldOrientToCompass {
+            compassButton.backgroundColor = UIColor(white: 1, alpha: 0.3)
+        } else {
+             compassButton.backgroundColor = nil
+        }
     }
 
     public func rotateMap(rotation: Double, animated:Bool) {
