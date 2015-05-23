@@ -49,8 +49,6 @@ public class BeaconManager: NSObject, CLLocationManagerDelegate {
     private func initLocationManager() {
         let locationManager = CLLocationManager()
         locationManager.delegate = self
-//        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
-//        locationManager.distanceFilter = kCLHeadingFilterNone
         self.locationManager = locationManager
     }
 
