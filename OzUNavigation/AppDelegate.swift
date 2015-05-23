@@ -16,11 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         setKingfisherRequestAttributes()
-
-        // Start listening to beacons if authorized
-        if BeaconManager.sharedInstance().locationAuthorizationStatus() == .Authorized {
-            BeaconManager.sharedInstance().startRangingBeacons()
-        }
         return true
     }
 
