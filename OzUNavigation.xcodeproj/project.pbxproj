@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1820592D1B109013008F1DB7 /* LocationAuthorizationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1820592C1B109013008F1DB7 /* LocationAuthorizationHelper.swift */; };
 		182DB3FB1B035F3E00FD4514 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182DB3FA1B035F3E00FD4514 /* NavigationViewController.swift */; };
 		182DB4051B036A9000FD4514 /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182DB4001B036A9000FD4514 /* Beacon.swift */; };
 		182DB4061B036A9000FD4514 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182DB4011B036A9000FD4514 /* Connection.swift */; };
@@ -48,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		06D01090A494C568C0FABA9A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		1820592C1B109013008F1DB7 /* LocationAuthorizationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationAuthorizationHelper.swift; sourceTree = "<group>"; };
 		182DB3FA1B035F3E00FD4514 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		182DB4001B036A9000FD4514 /* Beacon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beacon.swift; sourceTree = "<group>"; };
 		182DB4011B036A9000FD4514 /* Connection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				182DB3FD1B03647500FD4514 /* Places */,
 				183A07201B08F9D90070709D /* Here */,
 				182DB3FE1B03649300FD4514 /* Navigate */,
+				1820592C1B109013008F1DB7 /* LocationAuthorizationHelper.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				182DB4081B036A9000FD4514 /* EntityManager.swift in Sources */,
 				182DB40C1B036AA900FD4514 /* NavigationManager.swift in Sources */,
 				185FAF621B029D8300E92768 /* AppDelegate.swift in Sources */,
+				1820592D1B109013008F1DB7 /* LocationAuthorizationHelper.swift in Sources */,
 				182DB4091B036A9000FD4514 /* Region.swift in Sources */,
 				182DB4071B036A9000FD4514 /* Entity.swift in Sources */,
 				182DB4101B036BDF00FD4514 /* LoadViewController.swift in Sources */,
