@@ -9,16 +9,26 @@
 import UIKit
 
 public class NavigationViewController : UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, LocationUpdateListenerProtocol {
+    // MARK: - Current location attributes
+
     private var currentRegion: Region?
     private var currentBeacon: Beacon?
+
+    // MARK: - UIPickerView items
 
     private var regionIds:[Int]!
     private var regionList:[String] = [String]()
 
+    // MARK: - Navigation path
+
     private var calculatedPath: [Int]! // Used for storing the path after it's computed in shouldPerformSegue, for prepareForSegue
+
+    // MARK: - IB components
 
     @IBOutlet weak var sourceRegionPicker: UIPickerView!
     @IBOutlet weak var destinationRegionPicker: UIPickerView!
+
+    // MARK: - View methods
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,27 +38,11 @@ public class NavigationViewController : UIViewController, UIPickerViewDelegate, 
         self.regionList = regionListArray
     }
 
-    public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if currentRegion != nil && pickerView == sourceRegionPicker {
-            return regionList.count + 1 // +1 for navigating from current location
-        }
-        return regionList.count
+    public override func viewDidAppear(animated: Bool) {
+        LocationAuthorizationHelper.askForLocationAuthorization(self.tabBarController!)
     }
 
-    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-        if currentRegion != nil && pickerView == sourceRegionPicker {
-            if row == 0 {
-                return "Current location"
-            } else {
-                return self.regionList[row - 1]
-            }
-        }
-        return self.regionList[row]
-    }
-
-    public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
-    }
+    // MARK: - Location update listener
 
     public func didEnterRegion(region:Region?, byDetectingBeacon detectedBeacon:Beacon?) {
         if region == nil {
@@ -60,6 +54,8 @@ public class NavigationViewController : UIViewController, UIPickerViewDelegate, 
         }
         self.sourceRegionPicker.reloadAllComponents()
     }
+
+    // MARK: - Segue to Navigation Directions
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "startNavigationSegue" {
@@ -98,6 +94,8 @@ public class NavigationViewController : UIViewController, UIPickerViewDelegate, 
         return true
     }
 
+    // MARK: - UIPickerView selection parsers
+
     private func getSelectedSourceRegionId() -> Int {
         let sourceRow = sourceRegionPicker.selectedRowInComponent(0)
         if currentRegion != nil {
@@ -113,5 +111,29 @@ public class NavigationViewController : UIViewController, UIPickerViewDelegate, 
     private func getSelectedDestinationRegionId() -> Int {
         let destinationRow = destinationRegionPicker.selectedRowInComponent(0)
         return regionIds[destinationRow]
+    }
+
+    // MARK: - UIPickerView delegate methods
+
+    public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if currentRegion != nil && pickerView == sourceRegionPicker {
+            return regionList.count + 1 // +1 for navigating from current location
+        }
+        return regionList.count
+    }
+
+    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+        if currentRegion != nil && pickerView == sourceRegionPicker {
+            if row == 0 {
+                return "Current location"
+            } else {
+                return self.regionList[row - 1]
+            }
+        }
+        return self.regionList[row]
+    }
+
+    public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
     }
 }
